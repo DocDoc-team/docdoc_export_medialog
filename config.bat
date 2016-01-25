@@ -7,10 +7,10 @@ rem This user must have enought privileges for retrieving data from required
 rem tables.
 rem For more information see readme.txt
 rem
-set dbservername=TEMP\TEMP
-set dbname=temp_db_name
-set dbuser=temp_db_user
-set dbpass=temp_db_pass
+set dbservername=MEDIALOG-VR\SQLEXPRESS
+set dbname=Medialog_750
+set dbuser=sa
+set dbpass=1
 
 
 rem Full path to 'sqlcmd' tool of MS SQL - command line client for MS SQL
@@ -41,4 +41,4 @@ rem Subpath where to put export files
 set exportpath=.\export\
 rem List of subnames of sql commandlets (and corresponding export files)
 rem set exportfiles=clinics doctors depts doctschedule schedule
-set exportfiles=clinics doctors
+set exportfiles=clinics doctors doctors_days
