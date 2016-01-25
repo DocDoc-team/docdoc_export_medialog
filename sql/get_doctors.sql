@@ -1,3 +1,5 @@
+set nocount on;
+SELECT 'doctor_id;last_name;first_name';
 SELECT
   MEDECINS_ID,
   NOM,
