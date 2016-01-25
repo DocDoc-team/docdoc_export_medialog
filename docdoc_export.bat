@@ -24,6 +24,6 @@ for %%a in (%exportfiles%) do (
    "%sql_cmd_path%sqlcmd" -U %dbuser% -P %dbpass% -S %dbservername% -d %dbname% -i %sqlpath%get_%%a.sql -o %exportpath%%%a.csv -W -h-1 -s","
 )
 
-rem # 5. This batch is done.
+rem # 4. This batch is done.
 rem To upload exported files run docdoc_upload.bat
 echo Export files generated.
