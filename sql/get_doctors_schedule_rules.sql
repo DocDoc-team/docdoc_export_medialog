@@ -1,13 +1,16 @@
-set nocount on;
-select 'doctor_id;clinic_id;day_of_week;start_time;end_time;schedule_interval';
+SET NOCOUNT ON;
+SELECT 'doctor_id;clinic_id;day_name;day_of_week;start_time;end_time;enabled;schedule_interval,count';
 
 SELECT
   schedule.MEDECINS_ID               doctor_id,
   model.FM_INTORG_ID                 clinic_id,
+  days.NAME,
   days.DAY_OF_WEEK,
   days.START_TIME                    start_time,
   days.END_TIME                      finish_time,
-  ISNULL(setka.DUREE_TRANCHE, 30) AS schedule_interval
+  days.ENABLED,
+  ISNULL(setka.DUREE_TRANCHE, 30) AS schedule_interval,
+  count(*)
 
 FROM PL_PARAM model
   JOIN FM_ORG org ON org.FM_ORG_ID = model.FM_INTORG_ID
@@ -20,4 +23,12 @@ WHERE
   (model.ARCHIVE != 1 AND org.ARCHIVE != 1 AND schedule.ARCHIVE != 1 AND setka.ARCHIVE != 1)
   AND
   (schedule.OWNER_TYPE = 2 AND setka.OWNER_TYPE = 2)
-  AND days.ENABLED = 1
+
+GROUP BY schedule.MEDECINS_ID,
+  model.FM_INTORG_ID,
+  days.NAME,
+  days.DAY_OF_WEEK,
+  days.START_TIME,
+  days.END_TIME,
+  days.ENABLED,
+  ISNULL(setka.DUREE_TRANCHE, 30);
