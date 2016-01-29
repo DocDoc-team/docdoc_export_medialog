@@ -1,5 +1,5 @@
 set nocount on;
-select 'doctor_id;clinic_id;date;hour;duration';
+select 'doctor_id;clinic_id;date;time;duration';
 
 SELECT
   schedule.MEDECINS_ID  doctor_id,
