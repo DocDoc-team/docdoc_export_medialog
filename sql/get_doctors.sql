@@ -1,24 +1,34 @@
 set nocount on;
-SELECT 'doctor_id;last_name;first_name';
+SELECT 'doctor_id;clinic_id;last_name;first_name';
+
 SELECT
-  MEDECINS_ID,
-  NOM,
-  PRENOM
+  doctors.MEDECINS_ID doctor_id,
+  schedule.FM_INTORG_ID clinic_id,
+  doctors.NOM last_name,
+  doctors.PRENOM first_name
 FROM
-  MEDECINS
+  MEDECINS doctors
+  join PL_SUBJ schedule on schedule.MEDECINS_ID = doctors.MEDECINS_ID and schedule.OWNER_TYPE = 2 and schedule.ARCHIVE != 1
 WHERE
-  TYPE = 0
+  doctors.TYPE = 0
   AND
-  PRENOM IS NOT NULL AND PRENOM != ''
+  doctors.PRENOM IS NOT NULL AND doctors.PRENOM != ''
   AND
-  NOM IS NOT NULL AND NOM != ''
+  doctors.NOM IS NOT NULL AND doctors.NOM != ''
   AND
   (
-    (ISNULL(SYSTEM_FLAGS, '') = '')
+    (ISNULL(doctors.SYSTEM_FLAGS, '') = '')
     OR
-    (SYSTEM_FLAGS LIKE '%US%')
+    (doctors.SYSTEM_FLAGS LIKE '%US%')
   )
   AND
-  (ARCHIVE NOT IN (1))
+  (doctors.ARCHIVE NOT IN (1))
+  and schedule.FM_INTORG_ID is not null
+
+group by
+  doctors.MEDECINS_ID,
+  schedule.FM_INTORG_ID,
+  doctors.NOM,
+  doctors.PRENOM
 ORDER BY
-  NOM, PRENOM;
+  doctors.MEDECINS_ID;
