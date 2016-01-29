@@ -21,7 +21,7 @@ rem # 3. Make fresh data export from DB
 echo Generate new fresh export files
 for %%a in (%exportfiles%) do (
     echo - %%a
-   "%sql_cmd_path%sqlcmd" -U %dbuser% -P %dbpass% -S %dbservername% -d %dbname% -i %sqlpath%get_%%a.sql -o %exportpath%%%a.csv -W -h-1 -s","
+   "%sql_cmd_path%sqlcmd" -U %dbuser% -P %dbpass% -S %dbservername% -d %dbname% -i %sqlpath%get_%%a.sql -o %exportpath%%%a.csv -W -h-1 -s";"
 )
 
 rem # 4. This batch is done.
