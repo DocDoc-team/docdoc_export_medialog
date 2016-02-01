@@ -1,10 +1,9 @@
-SET NOCOUNT ON;
+﻿SET NOCOUNT ON;
 SELECT
-  'doctor_id;clinic_id;day_name;start_time;finish_time;enabled;day_even;day_of_week;day_of_month;month;year;day_id;schedule_interval;day_order';
-
+  'doctor_id;clinic_id;day_name;start_time;finish_time;enabled;day_even;day_of_week;day_of_month;month;year;day_id;schedule_interval;day_order;period_from;period_to;interval_work;interval_off;interval_start_from;day_week_month';
 SELECT
-  schedule.MEDECINS_ID                                        AS doctor_id,
-  model.FM_INTORG_ID                                          AS clinic_id,
+  schedule.MEDECINS_ID                                           doctor_id,
+  model.FM_INTORG_ID                                             clinic_id,
   ISNULL(days.NAME, ''),
   days.START_TIME,
   days.END_TIME,
@@ -16,7 +15,14 @@ SELECT
   ISNULL(days.DAY_MONTH, '')                                  AS month,
   ISNULL(days.PL_DAY_ID, '')                                  AS day_id,
   ISNULL(days.DUREE_TRANCHE, ISNULL(setka.DUREE_TRANCHE, 30)) AS schedule_interval,
-  days.DAY_ORDER
+  days.DAY_ORDER,
+  --
+  ISNULL(days.PERIOD_FROM, ''),
+  ISNULL(days.PERIOD_TO, ''),
+  ISNULL(days.INTERVAL_WORK, ''),
+  ISNULL(days.INTERVAL_OFF, ''),
+  ISNULL(days.INTERVAL_STARTFROM, ''),
+  ISNULL(days.DAY_WEEK_MONTH, '')
 
 FROM PL_PARAM model
   JOIN FM_ORG org ON org.FM_ORG_ID = model.FM_INTORG_ID
@@ -45,6 +51,12 @@ GROUP BY
   days.DAY_MONTH,
   days.PL_DAY_ID, --group
   ISNULL(days.DUREE_TRANCHE, ISNULL(setka.DUREE_TRANCHE, 30)),
-  days.DAY_ORDER
+  days.DAY_ORDER,
+  days.PERIOD_FROM,
+  days.PERIOD_TO,
+  days.INTERVAL_OFF,
+  days.INTERVAL_WORK,
+  days.INTERVAL_STARTFROM,
+  days.DAY_WEEK_MONTH
 
-ORDER BY days.DAY_ORDER DESC
+ORDER BY days.DAY_ORDER DESC;
