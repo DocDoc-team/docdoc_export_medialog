@@ -3,8 +3,8 @@ SELECT
   'doctor_id;clinic_id;day_name;start_time;finish_time;enabled;day_even;day_of_week;day_of_month;month;year;day_id;schedule_interval;day_order';
 
 SELECT
-  schedule.MEDECINS_ID               doctor_id,
-  model.FM_INTORG_ID                 clinic_id,
+  schedule.MEDECINS_ID                                        AS doctor_id,
+  model.FM_INTORG_ID                                          AS clinic_id,
   ISNULL(days.NAME, ''),
   days.START_TIME,
   days.END_TIME,
@@ -12,10 +12,10 @@ SELECT
   ISNULL(days.DAY_EVEN, ''),
   ISNULL(days.DAY_OF_WEEK, ''),
   ISNULL(days.DAY_OF_MONTH, ''),
-  ISNULL(days.DAY_YEAR, '')       AS year,
-  ISNULL(days.DAY_MONTH, '')      AS month,
-  ISNULL(days.PL_DAY_ID, ''),
-  ISNULL(setka.DUREE_TRANCHE, 30) AS schedule_interval,
+  ISNULL(days.DAY_YEAR, '')                                   AS year,
+  ISNULL(days.DAY_MONTH, '')                                  AS month,
+  ISNULL(days.PL_DAY_ID, '')                                  AS day_id,
+  ISNULL(days.DUREE_TRANCHE, ISNULL(setka.DUREE_TRANCHE, 30)) AS schedule_interval,
   days.DAY_ORDER
 
 FROM PL_PARAM model
@@ -44,16 +44,7 @@ GROUP BY
   days.DAY_YEAR,
   days.DAY_MONTH,
   days.PL_DAY_ID, --group
-  ISNULL(setka.DUREE_TRANCHE, 30),
+  ISNULL(days.DUREE_TRANCHE, ISNULL(setka.DUREE_TRANCHE, 30)),
   days.DAY_ORDER
 
-ORDER BY days.DAY_ORDER desc
-
-
-
-
-
-
-
-
-
+ORDER BY days.DAY_ORDER DESC
