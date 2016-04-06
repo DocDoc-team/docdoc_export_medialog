@@ -8,6 +8,6 @@ select
       templates.PL_DAY_ID,
       PL_AGEND_ID,
       DAY_OF_WEEK
-  from Medialog_750.dbo.PL_INT as templates
-  inner join Medialog_750.dbo.PL_DAY
+  from PL_INT as templates
+  inner join PL_DAY
   on templates.PL_DAY_ID = PL_DAY.PL_DAY_ID
