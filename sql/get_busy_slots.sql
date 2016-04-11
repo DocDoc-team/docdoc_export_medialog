@@ -1,3 +1,18 @@
+IF OBJECT_ID (N'dbo.getSlotDateTime', N'FN') IS NOT NULL
+    DROP FUNCTION getSlotDateTime;
+GO
+CREATE FUNCTION dbo.getSlotDateTime (
+@slotDate as datetime, @slotStart as int, @slotLength as int = 0)
+
+RETURNS datetime
+
+BEGIN
+
+return DATEADD(MINUTE, round(@slotStart / 100, 0) * 60 + @slotStart % 100 + @slotLength, @slotDate);
+END;
+
+GO
+
 set nocount on;
 select 'doctor_id;clinic_id;date_start;date_finish';
 
@@ -7,13 +22,10 @@ SELECT
 
    schedule.FM_INTORG_ID clinic_id,
 
-   DATEADD(MINUTE, substring(cast(HEURE as varchar), 1, LEN(HEURE) /2) * 60 +
+   dbo.getSlotDateTime(DATE_CONS, HEURE, default) as FROM_DATE,
 
-   substring(cast(HEURE as varchar), LEN(HEURE) /2 + 1, 2), DATE_CONS) as FROM_DATE,
+   dbo.getSlotDateTime(DATE_CONS, HEURE, DUREE) as TO_DATE
 
-   DATEADD(MINUTE, substring(cast(HEURE as varchar), 1, LEN(HEURE) /2) * 60 +
-
-   substring(cast(HEURE as varchar), LEN(HEURE) /2 + 1, 2) + DUREE, DATE_CONS) as TO_DATE
 
 FROM PLANNING
 
@@ -33,13 +45,9 @@ select
 
    schedule.FM_INTORG_ID clinic_id,
 
-   DATEADD(MINUTE, substring(cast(from_time as varchar), 1, LEN(from_time) /2) * 60 +
+   dbo.getSlotDateTime(from_date, from_time, default) as FROM_DATE,
 
-   substring(cast(from_time as varchar), LEN(from_time) /2 +1, 2), from_date) as FROM_DATE,
-
-   DATEADD(MINUTE, substring(cast(to_time as varchar), 1, LEN(to_time) /2) * 60 +
-
-   substring(cast(to_time as varchar), LEN(to_time) /2 +1, 2), to_date) as TO_DATE
+   dbo.getSlotDateTime(to_date, to_time, default) as TO_DATE
 
 from PL_EXCL
 
