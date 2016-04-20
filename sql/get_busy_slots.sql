@@ -11,12 +11,3 @@ SELECT
  WHERE DATE_START BETWEEN GETDATE() AND DATEADD(DAY, 30, GETDATE())
        AND CANCELLED != 1
        AND STATUS != 1
- union all
- select
-   schedule.MEDECINS_ID  doctor_id,
-   schedule.FM_INTORG_ID clinic_id,
-   DATE_START,
-   DATE_END
- from PL_EXCL
-   JOIN PL_SUBJ schedule ON schedule.PL_SUBJ_ID = PL_EXCL.PL_SUBJ_ID
- WHERE DATE_START BETWEEN GETDATE() AND DATEADD(DAY, 30, GETDATE())
