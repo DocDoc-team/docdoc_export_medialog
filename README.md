@@ -16,7 +16,7 @@ Docdoc: Модуль интеграции с МИС "Медиалог"
 Быстрая установка
 ---------
 
-- Скачать архив с исходным кодом из нашего [репозитория](https://bitbucket.org/dfsru/docdoc_export_medialog/get/75f54e2355fb.zip) и распаковать его в желаемое
+- Скачать архив с исходным кодом из нашего [репозитория](https://bitbucket.org/dfsru/docdoc_export_medialog/get/master.zip) и распаковать его в желаемое
 место установки. Подробное описание [тут](#markdown-header-_1);
 - настроить подключение скрипта к MS SQL базе и FTP DocDoc в файле config.bat, инструкция по настройке [здесь](#markdown-header-_2);
 
