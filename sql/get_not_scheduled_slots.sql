@@ -1,6 +1,5 @@
 IF OBJECT_ID (N'dbo.getSlotDateTime', N'FN') IS NULL
-BEGIN
-  CREATE FUNCTION dbo.getSlotDateTime (
+EXEC sp_executesql N'CREATE FUNCTION dbo.getSlotDateTime (
   @slotDate as datetime, @slotStart as int, @slotLength as int = 0)
 
   RETURNS datetime
@@ -8,14 +7,14 @@ BEGIN
   BEGIN
 
   return DATEADD(MINUTE, round(@slotStart / 100, 0) * 60 + @slotStart % 100 + @slotLength, @slotDate);
-  END;
-END
+  END;'
 
 GO
 
 set nocount on;
 SELECT 'doctor_id;clinic_id;date_start;date_finish';
 
+-- PL_LEG_ID список событий которые мы считаем внештатным расписанием
 SELECT
    schedule.MEDECINS_ID  doctor_id,
    schedule.FM_INTORG_ID clinic_id,
