@@ -4,7 +4,7 @@ SELECT
 SELECT
   schedule.MEDECINS_ID                                           doctor_id,
   schedule.FM_INTORG_ID                                          clinic_id,
-  ISNULL(days.NAME, ''),
+  '"' + REPLACE(ISNULL(days.NAME, ''), '"', '') + '"',
   days.START_TIME,
   days.END_TIME,
   days.ENABLED,
