@@ -20,6 +20,7 @@ echo open ftp://%ftpuser%:%ftppass%@%ftphost%>> %ftpbatchfile%
 
 echo option batch on>> %ftpbatchfile%
 echo option confirm off>> %ftpbatchfile%
+echo option reconnecttime 120>> %ftpbatchfile%
 
 if not "%ftpstartdir%"=="" (
     echo CD %ftpstartdir%>> %ftpbatchfile%
