@@ -1,6 +1,6 @@
 SET NOCOUNT ON;
 SELECT
-  'event_id;start_time;end_time;start_time;day_id';
+  'event_id;start_time;end_time;day_id';
 SELECT
 	event.PL_INT_ID as event_id,
 	INT_FROM as start_time,
