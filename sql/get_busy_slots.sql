@@ -31,11 +31,9 @@ FROM PLANNING
 
    JOIN PL_SUBJ schedule ON schedule.PL_SUBJ_ID = PLANNING.PL_SUBJ_ID
 
-WHERE DATE_CONS BETWEEN cast(getdate() as date) AND DATEADD(DAY, 30, GETDATE())
+WHERE DATE_CONS BETWEEN cast(getdate() as datetime) AND DATEADD(DAY, 30, GETDATE())
 
        AND CANCELLED != 1
-
-       AND STATUS != 1
 
 union all
 
@@ -53,4 +51,4 @@ from PL_EXCL
 
    JOIN PL_SUBJ schedule ON schedule.PL_SUBJ_ID = PL_EXCL.PL_SUBJ_ID
 
-WHERE PL_LEG_ID NOT IN (8, 11, 95) AND FROM_DATE BETWEEN cast(getdate() as date) AND DATEADD(DAY, 30, GETDATE())
+WHERE PL_LEG_ID NOT IN (8, 11, 95) AND FROM_DATE BETWEEN cast(getdate() as datetime) AND DATEADD(DAY, 30, GETDATE())

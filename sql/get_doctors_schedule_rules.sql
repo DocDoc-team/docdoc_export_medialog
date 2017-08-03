@@ -30,7 +30,7 @@ FROM PL_SUBJ schedule
   JOIN MEDECINS doctors ON doctors.MEDECINS_ID = schedule.MEDECINS_ID
   JOIN PL_DAY days ON days.PL_AGEND_ID = setka.PL_AGEND_ID
 WHERE
-  (org.ARCHIVE != 1 AND schedule.ARCHIVE != 1 AND setka.ARCHIVE != 1)
+  (schedule.ARCHIVE != 1 AND setka.ARCHIVE != 1)
   AND
   (schedule.OWNER_TYPE = 2 AND setka.OWNER_TYPE = 2)
 
