@@ -26,7 +26,8 @@ rem   ftphost=ftp.docdoc.ru:21
 set ftphost=ftp.docdoc.ru
 set ftpuser=testuser
 set ftppass=testpassword
-set ftpstartdir=testdir
+rem Directory is where all files will be saved
+set ftpstartdir=
 rem path to winscp ftp client
 set "winscppath=winscp\"
 set ftplogpath=ftp.log
